@@ -1,11 +1,21 @@
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
+import {Redirect} from 'react-router-dom';
 import { NavBar, List, InputItem, WhiteSpace,WingBlank, Radio, Button } from 'antd-mobile';
+//import {reqRegister} from '../../api';用不到了
 import Logo from '../logo';
+//引入表单验证提示信息的样式
+import '../../assets/less/index.less';
 
 const Item = List.Item;
 
 
 class Register extends Component {
+
+  static propTypes = {
+    user : PropTypes.object.isRequired,//user中已经约定好的数据中有errMsg
+    register : PropTypes.func.isRequired
+  }
 
   state = {
     //有关页面变化的数据保存到状态
@@ -13,7 +23,7 @@ class Register extends Component {
     laoban : true,
     username : '',
     password:'',
-    repassword : ''
+    rePassword : ''
   }
 
   /*handleRadio = type => {
@@ -51,11 +61,15 @@ class Register extends Component {
     })
   }
 
-  register = () => {
+  register = async () => {
     //收集表单数据
-    const {laoban, username, repassword, password} = this.state;
+    const {laoban, username, rePassword, password} = this.state;
     //发送ajax请求
-    console.log(laoban, username, repassword, password)
+    console.log(laoban, username, rePassword, password);
+    /*const user = await reqRegister({username,password,type:laoban ? 'laoban' : 'dashen'});
+    console.log(user);*/
+    //调用容器组件传递的更新状态的方法
+    this.props.register({type:laoban ? 'laoban':'dashen', username, password, rePassword})
   }
 
   goLogin = () => {
@@ -66,18 +80,28 @@ class Register extends Component {
 
   render () {
     const {laoban} = this.state;
+    const {errMsg, redirectTo} = this.props.user;
+
+    //注册成功后，根据容器组件传递的store中的状态数据判断重定向到哪
+    if (redirectTo){
+      //路由连接跳转
+      return <Redirect to={redirectTo} />
+    }
+
+
     return (
       <div>
         <NavBar>硅谷直聘</NavBar>
         <Logo />
+        <p className="err-msg">{errMsg}</p>
         <WingBlank>
           <List>
             {/*往定义的方法里面传参的方式*/}
             <InputItem onChange={(val) => {this.handleChange('username',val)}}>用户名 :</InputItem>
             <WhiteSpace/>
-            <InputItem onChange={(val) => {this.handleChange('password',val)}}>密&nbsp;&nbsp;&nbsp;码 :</InputItem>
+            <InputItem type="password" onChange={(val) => {this.handleChange('password',val)}}>密&nbsp;&nbsp;&nbsp;码 :</InputItem>
             <WhiteSpace/>
-            <InputItem onChange={(val) => {this.handleChange('repassword',val)}}>确认密码 :</InputItem>
+            <InputItem type="password" onChange={(val) => {this.handleChange('rePassword',val)}}>确认密码 :</InputItem>
             <WhiteSpace/>
             <Item>
               用户类型：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
