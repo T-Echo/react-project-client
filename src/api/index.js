@@ -17,3 +17,9 @@ export const reqLogin = data => ajax(`${prefix}/login`, data, 'POST');
 
 //定义更新用户信息的请求
 export const reqUpdate = data => ajax(`${prefix}/update`, data, 'POST');
+
+//定义获取用户信息的请求
+export const reqGetUserInfo = () => ajax(`${prefix}/user`);
+
+//定义获取用户列表的请求
+export const reqGetUserList = type => ajax(`${prefix}/userlist`,{type});

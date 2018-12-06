@@ -3,7 +3,14 @@
  */
 
 import {combineReducers} from 'redux';
-import {AUTH_SUCCESS,AUTH_ERROR} from './action-types';
+import {
+  AUTH_SUCCESS,
+  AUTH_ERROR,
+  UPDATE_USER_INFO,
+  RESET_USER_INFO,
+  UPDATE_USER_LIST,
+  RESET_USER_LIST
+} from './action-types';
 
 
 //初始化状态值
@@ -30,14 +37,22 @@ function user(previousState = initUserState,action){
     case AUTH_ERROR :
       //请求失败：不用保存错误的数据, ...action.data将errMsg的值覆盖为action中注册失败返回给用户的提示
       return {...initUserState, ...action.data};
+    case UPDATE_USER_INFO :
+      return {...action.data, redirectTo: getRedirectPath(action.data.type,action.data.header)};
+    case RESET_USER_INFO:
+      return {...initUserState, ...action.data};
     default :
       return previousState;
   }
 }
 
-const initYyyState = 0;
-function yyy(previousState = initYyyState,action){
+const initUserListState = [];
+function UserList(previousState = initUserListState,action){
   switch (action.type){
+    case UPDATE_USER_LIST:
+      return action.data;
+    case RESET_USER_LIST :
+      return [];
     default :
       return previousState;
   }
@@ -64,5 +79,6 @@ function getRedirectPath(type, header){
 
 //暴露
 export default combineReducers({
-  user
+  user,
+  UserList
 })
