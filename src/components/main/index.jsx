@@ -60,13 +60,15 @@ class Main extends Component{
 
     return(
       <div>
-        {currNav ? <NavBar>{currNav.title}</NavBar> : null}
-        <Route path="/laobaninfo" component={LaobanInfo}/>
-        <Route path="/dasheninfo" component={DashenInfo}/>
-        <Route path="/laoban" component={Laoban}/>
-        <Route path="/message" component={Message}/>
-        <Route path="/personal" component={Personal}/>
-        {currNav ? <Footer navList={this.navList}/> : null}
+        {currNav ? <NavBar className="nav-bar">{currNav.title}</NavBar> : null}
+        <div className="main-content">
+          <Route path="/laobaninfo" component={LaobanInfo}/>
+          <Route path="/dasheninfo" component={DashenInfo}/>
+          <Route path="/laoban" component={Laoban}/>
+          <Route path="/message" component={Message}/>
+          <Route path="/personal" component={Personal}/>
+        </div>
+        {currNav ? <Footer type={this.props.user.type} navList={this.navList}/> : null}
       </div>
     )
   }

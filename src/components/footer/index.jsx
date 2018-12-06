@@ -9,7 +9,8 @@ const Item = TabBar.Item;
 class Footer extends Component{
 
   static propTypes = {
-    navList : PropTypes.array.isRequired
+    navList : PropTypes.array.isRequired,
+    type : PropTypes.string.isRequired
   }
 
   redirectTo = path => {
@@ -17,8 +18,9 @@ class Footer extends Component{
   }
 
   render (){
-    const type = 'laoban';
-    const filter = type === 'laoban' ? '/dashen' : '/laoban';
+    //const type = 'laoban';
+    //动态获取type
+    const filter = this.props.type === 'laoban' ? '/dashen' : '/laoban';
     //过滤掉老板和大神图标中的一个
     const currNavList = this.props.navList.filter(item => filter === item.path ? false : true)
     //console.log(currNavList);
