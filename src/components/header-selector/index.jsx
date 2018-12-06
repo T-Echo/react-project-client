@@ -1,42 +1,40 @@
-import React,{Component} from 'react';
-import PropTypes from 'prop-types';
+import React, {Component} from 'react';
 import { Grid, List } from 'antd-mobile';
+import PropTypes from 'prop-types';
 
-class HeaderSelector extends Component{
-
+class HeaderSelector extends Component {
   static propTypes = {
-    setHeader : PropTypes.func.isRequired
+    setHeader: PropTypes.func.isRequired
   }
 
   state = {
-    header : null
+    header: null
   }
 
-  setHeader = (el,index) => {
-    //el中有icon 和text信息
-    //更新自身的状态
+  setHeader = (el, index) => {
+    // console.log(el);
+    // console.log(index);
+    //更新自身状态
     this.setState({
       header: el.icon
     })
-
-    //更新父组件的状态
+    //更新父组件状态
     this.props.setHeader(index);
   }
 
-  render (){
+  render () {
     const {header} = this.state;
 
     const data = Array.from(new Array(20)).map((_val, i) => ({
-      icon: require(`./images/avatars/头像${i + 1}.png`),
+      icon: require(`../../assets/images/头像${i + 1}.png`),
       text: `头像${i + 1}`,
     }));
 
     return (
       <List renderHeader={() => {
-        //将图标头像定义成状态
         return <div>请选择头像 <img src={header} /></div>
       }}>
-        <Grid data={data} columnNum="5" activeStyle={false} onClick={this.setHeader} />
+        <Grid data={data} columnNum={5} activeStyle={false} onClick={this.setHeader} />
       </List>
     )
   }

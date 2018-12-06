@@ -2,6 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {HashRouter, Switch, Route} from 'react-router-dom';
 import {Provider} from 'react-redux';
+//引入表单验证提示信息的样式
+import './assets/less/index.less';
 
 import store from './redux/store';
 import Login from './containers/login';

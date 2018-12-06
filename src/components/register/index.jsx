@@ -4,8 +4,7 @@ import {Redirect} from 'react-router-dom';
 import { NavBar, List, InputItem, WhiteSpace,WingBlank, Radio, Button } from 'antd-mobile';
 //import {reqRegister} from '../../api';用不到了
 import Logo from '../logo';
-//引入表单验证提示信息的样式
-import '../../assets/less/index.less';
+
 
 const Item = List.Item;
 

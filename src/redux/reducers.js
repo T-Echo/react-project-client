@@ -12,7 +12,12 @@ const initUserState = {
   type : '',
   _id : '',
   errMsg : '',
-  redirectTo : ''
+  redirectTo : '',
+  header : '',
+  post : '',
+  salay : '',
+  company: '',
+  info: ''
 };
 
 function user(previousState = initUserState,action){

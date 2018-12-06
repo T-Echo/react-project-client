@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import {Redirect} from 'react-router-dom';
 import { NavBar, List, InputItem, WhiteSpace,WingBlank, Button } from 'antd-mobile';
 import Logo from '../logo';
-import '../../assets/less/index.less';
 
 
 class Login extends Component {
