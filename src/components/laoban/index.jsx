@@ -28,7 +28,7 @@ class Laoban extends Component {
           {
             UserList.map((item,index) => {
               return (
-                <div key="index">
+                <div key={index}>
                   <Card>
                     <Card.Header
                       thumb={require(`../../assets/images/头像${+item.header + 1}.png`)}

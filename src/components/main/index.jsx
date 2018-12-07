@@ -7,7 +7,7 @@ import LaobanInfo from '../../containers/laoban-info';
 import DashenInfo from '../../containers/dashen-info';
 import Laoban from '../../containers/laoban';
 import Message from '../message';
-import Personal from '../personal';
+import Personal from '../../containers/personal';
 import Footer from '../footer';
 import './index.less';
 
