@@ -6,14 +6,24 @@
  2. 异步action creator
  返回值是函数 dispatch => {xxx}
  */
-import {reqRegister, reqLogin, reqUpdate, reqGetUserInfo,reqGetUserList} from '../api';
+import {
+  reqRegister,
+  reqLogin,
+  reqUpdate,
+  reqGetUserInfo,
+  reqGetUserList,
+  reqGetChatList
+} from '../api';
+
 import {
   AUTH_SUCCESS,
   AUTH_ERROR,
   UPDATE_USER_INFO,
   RESET_USER_INFO,
   UPDATE_USER_LIST,
-  RESET_USER_LIST
+  RESET_USER_LIST,
+  GET_CHAT_MESSAGES,
+  RESET_CHAT_MESSAGES
 } from './action-types';
 
 // 引入客户端io
@@ -26,6 +36,8 @@ export const updateUserInfo = data => ({type: UPDATE_USER_INFO, data});
 export const resetUserInfo = data => ({type: RESET_USER_INFO, data});
 export const updateUserList = data => ({type: UPDATE_USER_LIST, data});
 export const resetUserList = () => ({type: RESET_USER_LIST});
+export const getChatMessages = data => ({type : GET_CHAT_MESSAGES, data});
+export const resetChatMessages = () => ({type: RESET_CHAT_MESSAGES})
 
 
 //定义异步action creator
@@ -168,5 +180,21 @@ export const sendMessage = ({message,from,to}) => {
     // 向服务器发送消息， 客户端发消息的消息名称和服务器接受消息的消息名称必须完全一致
     socket.emit('sendMsg', {message,from,to});
     console.log('浏览器端向服务器发送消息:', {message,from,to})
+  }
+}
+
+export const getChatList = () => {
+  return dispatch => {
+    reqGetChatList()
+      .then(({data}) => {
+        if (data.code === 0){
+          dispatch(getChatMessages(data.data))
+        }else {
+          dispatch(resetChatMessages())
+        }
+      })
+      .catch(err => {
+        dispatch(resetChatMessages)
+      })
   }
 }

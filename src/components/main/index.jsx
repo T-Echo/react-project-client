@@ -18,7 +18,9 @@ class Main extends Component{
 
   static propTypes = {
     user : PropTypes.object.isRequired,
-    getUserInfo : PropTypes.func.isRequired
+    getUserInfo : PropTypes.func.isRequired,
+    //chatMessages : PropTypes.object.isRequired,这个组件中用不到
+    getChatList : PropTypes.func.isRequired
   }
 
   //将每个页面的信息定义到数组中
@@ -28,6 +30,11 @@ class Main extends Component{
     {path : '/message',title : '消息列表', icon : 'message', text : '消息'},
     {path : '/personal',title : '个人中心', icon : 'personal', text : '个人中心'}
   ]
+
+  componentDidMount(){
+    //获取有关此用户的消息数据
+    this.props.getChatList();
+  }
 
   render (){
 

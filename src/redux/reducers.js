@@ -9,7 +9,9 @@ import {
   UPDATE_USER_INFO,
   RESET_USER_INFO,
   UPDATE_USER_LIST,
-  RESET_USER_LIST
+  RESET_USER_LIST,
+  GET_CHAT_MESSAGES,
+  RESET_CHAT_MESSAGES
 } from './action-types';
 
 
@@ -58,6 +60,21 @@ function UserList(previousState = initUserListState,action){
   }
 }
 
+const initChatMessagesState = {
+  users : {},
+  chatMsgs : []
+}
+function chatMessages (previousState = initChatMessagesState,action){
+  switch (action.type){
+    case GET_CHAT_MESSAGES:
+      return action.data;
+    case RESET_CHAT_MESSAGES:
+      return initChatMessagesState;
+    default :
+      return previousState;
+  }
+}
+
 
 function getRedirectPath(type, header){
   let path = '';
@@ -80,5 +97,6 @@ function getRedirectPath(type, header){
 //暴露
 export default combineReducers({
   user,
-  UserList
+  UserList,
+  chatMessages
 })
