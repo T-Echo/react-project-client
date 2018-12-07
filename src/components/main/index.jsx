@@ -9,6 +9,8 @@ import Laoban from '../../containers/laoban';
 import Message from '../message';
 import Personal from '../../containers/personal';
 import Footer from '../footer';
+import Chat from '../../containers/chat';
+
 import './index.less';
 
 
@@ -67,6 +69,7 @@ class Main extends Component{
           <Route path="/laoban" component={Laoban}/>
           <Route path="/message" component={Message}/>
           <Route path="/personal" component={Personal}/>
+          <Route path="/chat/:id" component={Chat}/>
         </div>
         {currNav ? <Footer type={this.props.user.type} navList={this.navList}/> : null}
       </div>

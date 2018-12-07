@@ -16,6 +16,9 @@ import {
   RESET_USER_LIST
 } from './action-types';
 
+// 引入客户端io
+import io from 'socket.io-client';
+
 //定义同步action creator
 export const authSuccess = data => ({type: AUTH_SUCCESS, data});
 export const authError = data => ({type: AUTH_ERROR, data});
@@ -147,5 +150,23 @@ export const getUserList = type => {
       .catch(err => {
         dispatch(resetUserList())
       })
+  }
+}
+
+// 连接服务器, 得到代表连接的socket对象
+//当前客户端对象(保证和服务器的连接只连接一次)
+const socket = io('ws://localhost:5000');
+
+//保证只绑定一次
+socket.on('receiveMsg', function (data) {
+  console.log('浏览器端接收到服务器发送的消息:', data)
+})
+
+export const sendMessage = ({message,from,to}) => {
+  return dispatch => {
+
+    // 向服务器发送消息， 客户端发消息的消息名称和服务器接受消息的消息名称必须完全一致
+    socket.emit('sendMsg', {message,from,to});
+    console.log('浏览器端向服务器发送消息:', {message,from,to})
   }
 }

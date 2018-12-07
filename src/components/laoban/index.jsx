@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import { Card, WingBlank, WhiteSpace } from 'antd-mobile';
+import Cookies from 'js-cookie';
 
 
 class Laoban extends Component {
@@ -16,6 +17,10 @@ class Laoban extends Component {
     }
   }
 
+  goChat = id => {
+    this.props.history.push(`./chat/${id}`)
+  }
+
   render () {
 
     //过滤掉信息不完善的大神用户
@@ -28,7 +33,7 @@ class Laoban extends Component {
           {
             UserList.map((item,index) => {
               return (
-                <div key={index}>
+                <div key={index} onClick={this.goChat.bind(null,item._id)}>
                   <Card>
                     <Card.Header
                       thumb={require(`../../assets/images/头像${+item.header + 1}.png`)}
